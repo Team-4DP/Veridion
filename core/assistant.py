@@ -6,6 +6,10 @@ Main application controller for Veridion.
 
 from core.chat import ChatManager
 
+from config import DATABASE_PATH
+
+from memory.sqlite_memory import SQLiteMemory
+
 
 class Veridion:
     """
@@ -15,8 +19,16 @@ class Veridion:
     tools and language model.
     """
 
-    def __init__(self) -> None:
-        self.chat_manager = ChatManager()
+    def __init__(
+    self,
+    memory: SQLiteMemory,
+):
+
+    self.memory = memory
+        self.memory = SQLiteMemory(DATABASE_PATH)
+        self.chat_manager = ChatManager(
+    memory=self.memory,
+)
 
     def chat(self, message: str) -> str:
         """
