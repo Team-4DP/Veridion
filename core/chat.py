@@ -1,26 +1,50 @@
 """
 chat.py
 
-Handles conversations between the user and the LLM.
+Coordinates conversations between the user, memory,
+and the language model.
 """
 
-from llm.hf_client import ask_ai
+from llm.base import BaseLLM
+from memory.sqlite_memory import SQLiteMemory
 
 
 class ChatManager:
     """
-    Handles user conversations.
+    Handles conversations between the user and Veridion.
     """
 
-    def chat(self, message: str) -> str:
+    def __init__(
+        self,
+        llm: BaseLLM,
+        memory: SQLiteMemory,
+    ) -> None:
         """
-        Send the user's message to the language model.
+        Initialise the chat manager.
 
         Args:
-            message: User input.
+            llm:
+                Language model provider.
 
-        Returns:
-            Model response.
+            memory:
+                Conversation memory service.
         """
 
-        return ask_ai(message)
+        self.llm = llm
+        self.memory = memory
+
+    def chat(self, messages: list[dict[str, str]]) -> str:
+        """
+        Send a conversation to the language model.
+
+        Args:
+            messages:
+                Chat messages in OpenAI format.
+
+        Returns:
+            Assistant response.
+        """
+
+        response = self.llm.chat(messages)
+
+        return response

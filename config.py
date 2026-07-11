@@ -37,6 +37,16 @@ HF_TOKEN: str | None = os.getenv("HF_TOKEN")
 MODEL_NAME: str = "Qwen/Qwen2.5-7B-Instruct"
 
 # ---------------------------------------------------------------------
+# LLM Provider
+# ---------------------------------------------------------------------
+
+LLM_PROVIDER: str = "huggingface"
+
+HF_TOKEN: str | None = os.getenv("HF_TOKEN")
+
+MODEL_NAME: str = "Qwen/Qwen2.5-7B-Instruct"
+
+# ---------------------------------------------------------------------
 # Conversation
 # ---------------------------------------------------------------------
 
